@@ -15,6 +15,7 @@ env:
   DOWNLOADQT: https://github.com/dougmassay/win-qtwebkit-5.212/releases/download/v5.212-1/Qt6.7.2ci_x64_VS2022.7z
   QT: Qt6.7.2
   PYTHON: \hostedtoolcache\windows\Python\3.11.9\x64
+  PATCH: C:\Program Files\Git\usr\bin\patch.exe
 
 jobs:
   build:
@@ -42,8 +43,7 @@ jobs:
         echo ${{runner.workspace}}
         python --version
         cmake --version
-        where patch
-        patch --version
+        %PATCH% --version
 
     - name: Build Qt6
       shell: cmd
@@ -53,7 +53,7 @@ jobs:
 
     - name: Package Qt6
       shell: cmd
-      working-directory: ${{runner.workspace}}\build
+      #working-directory: ${{runner.workspace}}\build
       run: |
         echo %PATH%
 
