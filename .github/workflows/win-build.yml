@@ -31,11 +31,11 @@ jobs:
 
     - uses: lukka/get-cmake@latest
 
-    - name: Install winget
-      uses: Cyberboss/install-winget@v1
-      id: wingetid
+    #- name: Install winget
+    #  uses: Cyberboss/install-winget@v1
+    #  id: wingetid
     
-    - run: echo '${{ steps.wingetid.outputs.winget-version }}'
+    #- run: echo '${{ steps.wingetid.outputs.winget-version }}'
 
     - name: Create Build Environment
       shell: cmd
