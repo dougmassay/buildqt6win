@@ -1,0 +1,59 @@
+name: Build Qt6 on Windows
+
+on:
+  workflow_dispatch: 
+    branches: master
+    #inputs:
+    #  Qt6VER:
+    #    description: 'Qt6 version to build'
+    #    required: true
+    #    default: ''
+
+
+env:
+  BUILD_TYPE: Release
+  DOWNLOADQT: https://github.com/dougmassay/win-qtwebkit-5.212/releases/download/v5.212-1/Qt6.7.2ci_x64_VS2022.7z
+  QT: Qt6.7.2
+  PYTHON: \hostedtoolcache\windows\Python\3.11.9\x64
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11.9
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11.9
+
+    - uses: lukka/get-cmake@latest
+
+    - name: Install winget
+      uses: Cyberboss/install-winget@v1
+      id: wingetid
+    
+    - run: echo '${{ steps.wingetid.outputs.winget-version }}'
+
+    - name: Create Build Environment
+      shell: cmd
+      run: |
+        echo ${{runner.workspace}}
+        python --version
+        cmake --version
+        patch --version
+
+    - name: Build Qt6
+        call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+
+
+    - name: Package Qt6
+      shell: cmd
+      working-directory: ${{runner.workspace}}\build
+
+    #- uses: actions/upload-artifact@v4
+    #  with:
+    #    name: 
+    #    path: 
+    $    retention-days: 7
