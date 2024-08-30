@@ -42,9 +42,11 @@ jobs:
         echo ${{runner.workspace}}
         python --version
         cmake --version
+        where patch
         patch --version
 
     - name: Build Qt6
+      shell: cmd
       run: |
         call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
 
