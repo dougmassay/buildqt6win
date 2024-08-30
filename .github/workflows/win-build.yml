@@ -43,7 +43,7 @@ jobs:
         echo ${{runner.workspace}}
         python --version
         cmake --version
-        "%PATCH%"" --version
+        "%PATCH%" --version
 
     - name: Build Qt6
       shell: cmd
